@@ -25,4 +25,25 @@ public class ProductDAO {
         }
         return list;
     }
+    public Product getProductById(int id) {
+        Product p = null;
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM products WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setBrand(rs.getString("brand"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDescription(rs.getString("description"));
+                p.setImage(rs.getString("image"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
 }

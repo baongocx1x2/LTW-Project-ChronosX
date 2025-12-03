@@ -1,17 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head><title>Sản phẩm ChronosX</title></head>
-<body>
-<h2>Danh sách sản phẩm</h2>
-<c:forEach var="p" items="${products}">
-    <div>
-        <img src="${p.image}" width="100"/>
-        <h3>${p.name}</h3>
-        <p>Thương hiệu: ${p.brand}</p>
-        <p>Giá: ${p.price} VND</p>
-        <p>${p.description}</p>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Danh sách sản phẩm</h2>
+    <div class="row">
+        <c:forEach var="p" items="${products}">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="${p.image}" class="card-img-top" alt="${p.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${p.name}</h5>
+                        <p class="card-text">Thương hiệu: ${p.brand}</p>
+                        <p class="card-text text-danger fw-bold">${p.price} VND</p>
+                        <form action="cart" method="post">
+                            <input type="hidden" name="productId" value="${p.id}" />
+                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2"/>
+                            <button type="submit" class="btn btn-success w-100">Thêm vào giỏ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
-</c:forEach>
-</body>
-</html>
+</div>
+
+<%@ include file="footer.jsp" %>
