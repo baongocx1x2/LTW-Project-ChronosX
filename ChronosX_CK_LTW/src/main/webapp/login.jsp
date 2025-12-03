@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ include file="header.jsp" %>
 
-</body>
-</html>
+<div class="container mt-4" style="max-width: 400px;">
+    <h2 class="mb-4 text-center">Đăng nhập</h2>
+    <form action="auth" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Đăng nhập</button>
+    </form>
+    <p class="mt-3 text-center">Chưa có tài khoản? <a href="#">Đăng ký</a></p>
+</div>
+
+<%@ include file="footer.jsp" %>
