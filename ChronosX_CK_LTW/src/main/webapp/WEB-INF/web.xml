@@ -1,20 +1,27 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         version="5.0">
-    <servlet>
-        <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>controller.ProductServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/products</url-pattern>
-    </servlet-mapping>
-    <servlet>
-    <servlet-name>CartServlet</servlet-name>
-    <servlet-class>controller.CartServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>CartServlet</servlet-name>
-    <url-pattern>/cart</url-pattern>
-</servlet-mapping>
-    
+	version="5.0">
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>controller.ProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/products</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/cart</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>controller.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
 </web-app>
