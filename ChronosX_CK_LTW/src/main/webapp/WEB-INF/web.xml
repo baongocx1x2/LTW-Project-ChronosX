@@ -24,4 +24,12 @@
 		<servlet-name>AdminServlet</servlet-name>
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>controller.NewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/news</url-pattern>
+	</servlet-mapping>
 </web-app>

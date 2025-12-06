@@ -31,7 +31,7 @@
       <div class="col-md-3">
         <h5>Khám phá</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Tin tức</a></li>
+          <li><a href="news" class="text-white">Tin tức</a></li>
           <li><a href="#" class="text-white">Tìm kiếm</a></li>
           <li><a href="#" class="text-white">Các cửa hàng</a></li>
         </ul>
