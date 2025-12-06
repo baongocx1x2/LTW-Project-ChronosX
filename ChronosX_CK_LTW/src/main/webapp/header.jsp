@@ -26,6 +26,7 @@
         <li class="nav-item"><a class="nav-link" href="index.jsp">Trang chủ</a></li>
         <li class="nav-item"><a class="nav-link" href="products">Sản phẩm</a></li>
         <li class="nav-item"><a class="nav-link" href="cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+        <li class="nav-item"><a class="nav-link" href="news"><i class="fa fa-newspaper"></i> Tin tức</a></li>
         <li class="nav-item"><a class="nav-link" href="login.jsp"><i class="fa fa-user"></i> Đăng nhập</a></li>
       </ul>
     </div>
