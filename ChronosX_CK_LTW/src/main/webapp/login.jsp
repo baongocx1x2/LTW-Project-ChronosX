@@ -14,7 +14,7 @@
         </div>
         <button type="submit" class="btn btn-success w-100">Đăng nhập</button>
     </form>
-    <p class="mt-3 text-center">Chưa có tài khoản? <a href="#">Đăng ký</a></p>
+    <p class="mt-3 text-center">Chưa có tài khoản? <a href="register.jsp">Đăng ký</a></p>
 </div>
 
 <%@ include file="footer.jsp" %>
