@@ -21,7 +21,7 @@
         <h5>Chính sách bảo hành</h5>
         <ul class="list-unstyled">
           <li><a href="#" class="text-white">Chính sách bảo mật</a></li>
-          <li><a href="#" class="text-white">Chính sách giao hàng</a></li>
+          <li><a href="privacy.jsp" class="text-white">Chính sách giao hàng</a></li>
           <li><a href="#" class="text-white">Chính sách đổi hàng</a></li>
           <li><a href="#" class="text-white">Chính sách thanh toán</a></li>
         </ul>
