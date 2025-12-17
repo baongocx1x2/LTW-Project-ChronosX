@@ -2,27 +2,102 @@
 <%@ include file="header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="container mt-4">
-    <h2 class="mb-4">Danh sách sản phẩm</h2>
-    <div class="row">
-        <c:forEach var="p" items="${products}">
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="${p.image}" class="card-img-top" alt="${p.name}">
-                    <div class="card-body">
-                        <h5 class="card-title">${p.name}</h5>
-                        <p class="card-text">Thương hiệu: ${p.brand}</p>
-                        <p class="card-text text-danger fw-bold">${p.price} VND</p>
-                        <form action="cart" method="post">
-                            <input type="hidden" name="productId" value="${p.id}" />
-                            <input type="number" name="quantity" value="1" min="1" class="form-control mb-2"/>
-                            <button type="submit" class="btn btn-success w-100">Thêm vào giỏ</button>
-                        </form>
+<link rel="stylesheet" href="css/product.css">
+
+<div class="product-page">
+    <section class="product-header-section">
+        <div class="container py-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h2 class="product-page-title mb-1">Danh sách sản phẩm</h2>
+                    <p class="text-muted mb-0">Khám phá bộ sưu tập đồng hồ đa dạng về phong cách và thương hiệu.</p>
+                </div>
+                <div class="product-toolbar d-flex flex-wrap gap-2">
+                    <div class="input-group input-group-sm product-search-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fa fa-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" placeholder="Tìm theo tên, thương hiệu...">
                     </div>
+                    <select class="form-select form-select-sm product-sort-select">
+                        <option value="">Sắp xếp</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                        <option value="newest">Mới nhất</option>
+                    </select>
                 </div>
             </div>
-        </c:forEach>
-    </div>
+        </div>
+    </section>
+
+    <section class="product-list-section py-4">
+        <div class="container">
+            <c:choose>
+                <c:when test="${not empty products}">
+                    <div class="row g-4">
+                        <c:forEach var="p" items="${products}">
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="product-card h-100 d-flex flex-column">
+                                    <div class="product-card-image-wrapper">
+                                        <img src="${p.image}" class="product-card-image" alt="${p.name}">
+                                        <span class="product-card-tag">New</span>
+                                    </div>
+                                    <div class="product-card-body flex-grow-1 d-flex flex-column">
+                                        <h5 class="product-card-title">${p.name}</h5>
+                                        <p class="product-card-brand text-muted mb-1">${p.brand}</p>
+                                        <p class="product-card-price mb-2">${p.price} VND</p>
+                                        <div class="product-card-rating mb-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-alt"></i>
+                                            <span class="rating-count text-muted">(123)</span>
+                                        </div>
+                                        <form action="cart" method="post" class="mt-auto">
+                                            <input type="hidden" name="productId" value="${p.id}" />
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <input type="number" name="quantity" value="1" min="1"
+                                                       class="form-control form-control-sm text-center product-quantity-input"/>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100 btn-sm">
+                                                <i class="fa fa-cart-plus me-2"></i>Thêm vào giỏ
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row g-4 mb-4">
+                        <c:forEach begin="1" end="8" var="i">
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="product-card product-card-placeholder h-100 d-flex flex-column">
+                                    <div class="product-card-image-wrapper placeholder-glow">
+                                        <div class="placeholder placeholder-image"></div>
+                                    </div>
+                                    <div class="product-card-body flex-grow-1 d-flex flex-column">
+                                        <div class="placeholder placeholder-title mb-2"></div>
+                                        <div class="placeholder placeholder-text mb-1"></div>
+                                        <div class="placeholder placeholder-text mb-3"></div>
+                                        <div class="placeholder placeholder-btn mt-auto"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <div class="product-empty text-center py-4">
+     
+                        <a href="index.jsp" class="btn btn-outline-primary">
+                            Quay về trang chủ
+                        </a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </section>
 </div>
 
 <%@ include file="footer.jsp" %>
