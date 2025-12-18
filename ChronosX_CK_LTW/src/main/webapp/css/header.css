@@ -1,0 +1,114 @@
+/* ===== GLOBAL HEADER (APPLY TO ALL PAGES) ===== */
+.cx-header-top {
+    background: radial-gradient(circle at left, #0f172a 0, #020617 55%);
+    color: #e5e7eb;
+}
+
+.cx-header-badge {
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(34, 197, 94, 0.12);
+    color: #bbf7d0;
+    border: 1px solid rgba(34, 197, 94, 0.5);
+}
+
+.cx-header-contact {
+    font-size: 0.85rem;
+    color: #cbd5f5;
+}
+
+.cx-header-contact i {
+    color: #38bdf8;
+}
+
+.cx-navbar {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    background: rgba(248, 250, 252, 0.96);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.cx-navbar .nav-link {
+    font-weight: 500;
+    position: relative;
+    padding-inline: 0.75rem;
+}
+
+.cx-navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #2563eb, #22c55e);
+    transition: width 0.2s ease-in-out;
+}
+
+.cx-navbar .nav-link:hover::after {
+    width: 100%;
+}
+
+.cx-navbar .nav-link:hover {
+    color: #2563eb !important;
+}
+
+.cx-navbar .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.cx-logo-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 2px solid rgba(37, 99, 235, 0.9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #e5e7eb;
+    background: radial-gradient(circle at 30% 0, #60a5fa 0, #1e3a8a 38%, #020617 100%);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.cx-logo-mark::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #22c55e;
+    border: 1px solid #bbf7d0;
+    right: 4px;
+    top: 6px;
+}
+
+/* ===== RESPONSIVE HEADER ===== */
+@media (max-width: 767.98px) {
+    .cx-header-top {
+        padding-top: 0.35rem !important;
+        padding-bottom: 0.35rem !important;
+    }
+
+    .cx-header-contact {
+        font-size: 0.78rem;
+    }
+
+    .cx-logo-mark {
+        width: 34px;
+        height: 34px;
+        font-size: 0.8rem;
+    }
+}
+
+
