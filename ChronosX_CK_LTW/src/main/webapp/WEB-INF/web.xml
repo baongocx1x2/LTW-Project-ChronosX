@@ -1,35 +1,87 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	version="5.0">
-	<servlet>
-		<servlet-name>ProductServlet</servlet-name>
-		<servlet-class>controller.ProductServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProductServlet</servlet-name>
-		<url-pattern>/products</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>CartServlet</servlet-name>
-		<servlet-class>controller.CartServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CartServlet</servlet-name>
-		<url-pattern>/cart</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AdminServlet</servlet-name>
-		<servlet-class>controller.AdminServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdminServlet</servlet-name>
-		<url-pattern>/admin</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NewsServlet</servlet-name>
-		<servlet-class>controller.NewsServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NewsServlet</servlet-name>
-		<url-pattern>/news</url-pattern>
-	</servlet-mapping>
+         version="5.0">
+
+    <!-- ProductServlet -->
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>controller.ProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+
+    <!-- CartServlet -->
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>controller.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <!-- AdminServlet -->
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>controller.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <!-- NewsServlet -->
+    <servlet>
+        <servlet-name>NewsServlet</servlet-name>
+        <servlet-class>controller.NewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewsServlet</servlet-name>
+        <url-pattern>/news</url-pattern>
+    </servlet-mapping>
+
+    <!-- AuthServlet (login/register) -->
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>controller.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+
+    <!-- LogoutServlet -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- Encoding Filter (UTF-8) -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Welcome file -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
 </web-app>

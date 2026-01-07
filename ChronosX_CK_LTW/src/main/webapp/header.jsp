@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>ChronosX</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome (icon giỏ hàng, user...) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Header CSS chung -->
+    <!-- Header CSS -->
     <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
@@ -37,7 +38,24 @@
         <li class="nav-item"><a class="nav-link" href="products">Sản phẩm</a></li>
         <li class="nav-item"><a class="nav-link" href="cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
         <li class="nav-item"><a class="nav-link" href="news"><i class="fa fa-newspaper"></i> Tin tức</a></li>
-        <li class="nav-item"><a class="nav-link" href="login.jsp"><i class="fa fa-user"></i> Đăng nhập</a></li>
+
+        <!-- Kiểm tra session user -->
+        <c:choose>
+          <c:when test="${not empty sessionScope.user}">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
+                <i class="fa fa-user"></i> ${sessionScope.user.username}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="profile.jsp">Thông tin cá nhân</a></li>
+                <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+              </ul>
+            </li>
+          </c:when>
+          <c:otherwise>
+            <li class="nav-item"><a class="nav-link" href="login.jsp"><i class="fa fa-user"></i> Đăng nhập</a></li>
+          </c:otherwise>
+        </c:choose>
       </ul>
     </div>
   </div>
