@@ -136,6 +136,8 @@
                 <button type="submit" class="btn btn-primary">Thanh toán</button>
             </form>
         </div>
+    </c:if>
+        </div>
     </section>
 </div>
 
