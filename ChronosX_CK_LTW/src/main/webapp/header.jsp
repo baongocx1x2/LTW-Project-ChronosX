@@ -49,6 +49,7 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="profile.jsp">Thông tin cá nhân</a></li>
                 <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="orders">Lịch sử đơn hàng</a></li>
               </ul>
             </li>
           </c:when>

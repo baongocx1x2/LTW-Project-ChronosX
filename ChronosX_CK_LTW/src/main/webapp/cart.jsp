@@ -92,76 +92,49 @@
                 </div>
             </c:if>
 
-            <c:if test="${not empty cart}">
-                <div class="row g-4">
-                    <div class="col-lg-8">
-                        <div class="cart-table-wrapper">
-                            <table class="table align-middle cart-table">
-                                <thead>
-                                <tr>
-                                    <th>Sản phẩm</th>
-                                    <th class="text-center">Số lượng</th>
-                                    <th class="text-end">Đơn giá</th>
-                                    <th class="text-end">Thành tiền</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="item" items="${cart}">
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="cart-item-thumb">
-                                                    <img src="${item.product.image}" alt="${item.product.name}">
-                                                </div>
-                                                <div>
-                                                    <div class="cart-item-name">${item.product.name}</div>
-                                                    <div class="cart-item-meta text-muted small">
-                                                        Thương hiệu: ${item.product.brand}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            ${item.quantity}
-                                        </td>
-                                        <td class="text-end">
-                                            ${item.product.price}
-                                        </td>
-                                        <td class="text-end">
-                                            ${item.totalPrice}
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="cart-summary-card">
-                            <h5 class="mb-3">Tóm tắt đơn hàng</h5>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Tạm tính</span>
-                                <span>${cartTotal}</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Phí vận chuyển</span>
-                                <span class="text-success">Miễn phí</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between mb-3">
-                                <strong>Tổng thanh toán</strong>
-                                <strong>${cartTotal}</strong>
-                            </div>
-                            <button class="btn btn-primary w-100 mb-2">
-                                Tiến hành thanh toán
-                            </button>
-                            <a href="products" class="btn btn-outline-primary w-100 btn-sm">
-                                Tiếp tục mua sắm
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
+    <c:if test="${not empty cart}">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="item" items="${cart}">
+                    <tr>
+                        <td>${item.product.name}</td>
+                        <td>
+                            <!-- Form cập nhật số lượng -->
+                            <form action="cart" method="post" class="d-flex">
+                                <input type="hidden" name="action" value="update"/>
+                                <input type="hidden" name="productId" value="${item.product.id}"/>
+                                <input type="number" name="quantity" value="${item.quantity}" min="1"
+                                       class="form-control me-2" style="width:80px"/>
+                                <button type="submit" class="btn btn-sm btn-success">Cập nhật</button>
+                            </form>
+                        </td>
+                        <td>${item.product.price}</td>
+                        <td>${item.totalPrice}</td>
+                        <td>
+                            <!-- Form xóa sản phẩm -->
+                            <form action="cart" method="post">
+                                <input type="hidden" name="action" value="remove"/>
+                                <input type="hidden" name="productId" value="${item.product.id}"/>
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <div class="text-end">
+            <form action="checkout" method="post">
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </form>
         </div>
     </section>
 </div>
