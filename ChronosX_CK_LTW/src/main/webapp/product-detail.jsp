@@ -101,6 +101,7 @@
 
                                 <!-- Add to Cart Form -->
                                 <form action="cart" method="post" class="product-detail-form">
+                                    <input type="hidden" name="action" value="add" />
                                     <input type="hidden" name="productId" value="${product.id}" />
                                     <div class="row g-2 mb-3">
                                         <div class="col-auto">
