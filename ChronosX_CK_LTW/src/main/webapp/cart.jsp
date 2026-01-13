@@ -17,21 +17,41 @@
                     <th>Số lượng</th>
                     <th>Giá</th>
                     <th>Tổng</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="item" items="${cart}">
                     <tr>
                         <td>${item.product.name}</td>
-                        <td>${item.quantity}</td>
+                        <td>
+                            <!-- Form cập nhật số lượng -->
+                            <form action="cart" method="post" class="d-flex">
+                                <input type="hidden" name="action" value="update"/>
+                                <input type="hidden" name="productId" value="${item.product.id}"/>
+                                <input type="number" name="quantity" value="${item.quantity}" min="1"
+                                       class="form-control me-2" style="width:80px"/>
+                                <button type="submit" class="btn btn-sm btn-success">Cập nhật</button>
+                            </form>
+                        </td>
                         <td>${item.product.price}</td>
                         <td>${item.totalPrice}</td>
+                        <td>
+                            <!-- Form xóa sản phẩm -->
+                            <form action="cart" method="post">
+                                <input type="hidden" name="action" value="remove"/>
+                                <input type="hidden" name="productId" value="${item.product.id}"/>
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
         <div class="text-end">
-            <button class="btn btn-primary">Thanh toán</button>
+            <form action="checkout" method="post">
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </form>
         </div>
     </c:if>
 </div>
