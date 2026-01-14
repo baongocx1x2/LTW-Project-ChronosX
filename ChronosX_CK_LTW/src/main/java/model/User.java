@@ -6,7 +6,7 @@ public class User {
     private String password;
     private String email;
     private String fullname;
-
+    private String role;
     // Constructors
     public User() {}
 
@@ -16,6 +16,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.fullname = fullname;
+        this.role = role;
     }
 
     // Getters & Setters
@@ -53,4 +54,11 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }

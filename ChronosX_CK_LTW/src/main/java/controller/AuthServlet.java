@@ -51,6 +51,7 @@ public class AuthServlet extends HttpServlet {
             u.setEmail(email);
             u.setUsername(username);
             u.setPassword(hashed);
+            u.setRole("user");
 
             if (dao.register(u)) {
                 response.sendRedirect("login.jsp?success=1");
@@ -69,10 +70,19 @@ public class AuthServlet extends HttpServlet {
             if (u != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", u);
-                response.sendRedirect("index.jsp");
+                session.setAttribute("userRole", u.getRole()); // thêm role vào session
+
+                // Nếu là admin → vào trang admin
+                if ("admin".equals(u.getRole())) {
+                    response.sendRedirect("admin");
+                } else {
+                    // Nếu là user → vào trang index hoặc products
+                    response.sendRedirect("index.jsp");
+                }
             } else {
                 response.sendRedirect("login.jsp?error=1");
             }
+
         }
     }
 }
