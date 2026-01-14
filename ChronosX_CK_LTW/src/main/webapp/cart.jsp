@@ -40,6 +40,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             </c:if>
+            <c:if test="${not empty param.error}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa fa-exclamation-circle me-2"></i>${param.error}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </c:if>
 
             <c:if test="${empty cart}">
                 <div class="cart-empty text-center py-5">
@@ -101,8 +107,9 @@
                                                     <form action="cart" method="post" class="d-inline-flex align-items-center gap-2">
                                                         <input type="hidden" name="action" value="update"/>
                                                         <input type="hidden" name="productId" value="${item.product.id}"/>
-                                                        <input type="number" name="quantity" value="${item.quantity}" min="1"
-                                                               class="form-control form-control-sm text-center" style="width:70px"/>
+                                                        <input type="number" name="quantity" value="${item.quantity}" min="1" max="9999"
+                                                               class="form-control form-control-sm text-center cart-quantity-input" 
+                                                               style="width:70px" required>
                                                         <button type="submit" class="btn btn-sm btn-outline-primary" title="Cập nhật">
                                                             <i class="fa fa-sync-alt"></i>
                                                         </button>
@@ -195,4 +202,5 @@
     </section>
 </div>
 
+<script src="js/validation.js"></script>
 <%@ include file="footer.jsp" %>

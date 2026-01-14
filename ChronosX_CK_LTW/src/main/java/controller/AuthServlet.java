@@ -11,6 +11,7 @@ import java.util.Base64;
 import dao.UserDAO;
 import model.User;
 import util.EmailService;
+import util.ValidationUtil;
 
 public class AuthServlet extends HttpServlet {
     private UserDAO dao = new UserDAO();
@@ -38,9 +39,38 @@ public class AuthServlet extends HttpServlet {
             String password = request.getParameter("password");
             String confirm = request.getParameter("confirmPassword");
 
-            // Kiểm tra confirmPassword
-            if (!password.equals(confirm)) {
-                response.sendRedirect("register.jsp?error=pass");
+            // Validation: Username
+            ValidationUtil.ValidationResult usernameResult = ValidationUtil.validateUsername(username);
+            if (!usernameResult.isValid()) {
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode(usernameResult.getErrorMessage(), "UTF-8"));
+                return;
+            }
+
+            // Validation: Email
+            ValidationUtil.ValidationResult emailResult = ValidationUtil.validateEmail(email);
+            if (!emailResult.isValid()) {
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode(emailResult.getErrorMessage(), "UTF-8"));
+                return;
+            }
+
+            // Validation: Fullname
+            ValidationUtil.ValidationResult fullnameResult = ValidationUtil.validateFullname(fullname);
+            if (!fullnameResult.isValid()) {
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode(fullnameResult.getErrorMessage(), "UTF-8"));
+                return;
+            }
+
+            // Validation: Password
+            ValidationUtil.ValidationResult passwordResult = ValidationUtil.validatePassword(password);
+            if (!passwordResult.isValid()) {
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode(passwordResult.getErrorMessage(), "UTF-8"));
+                return;
+            }
+
+            // Validation: Confirm Password
+            ValidationUtil.ValidationResult confirmResult = ValidationUtil.validatePasswordConfirm(password, confirm);
+            if (!confirmResult.isValid()) {
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode(confirmResult.getErrorMessage(), "UTF-8"));
                 return;
             }
 
@@ -48,9 +78,9 @@ public class AuthServlet extends HttpServlet {
             String hashed = hashPassword(password);
 
             User u = new User();
-            u.setFullname(fullname);
-            u.setEmail(email);
-            u.setUsername(username);
+            u.setFullname(fullname.trim());
+            u.setEmail(email.trim());
+            u.setUsername(username.trim());
             u.setPassword(hashed);
 
             if (dao.register(u)) {
@@ -64,23 +94,35 @@ public class AuthServlet extends HttpServlet {
                 }
                 response.sendRedirect("login.jsp?success=1");
             } else {
-                response.sendRedirect("register.jsp?error=1");
+                response.sendRedirect("register.jsp?error=" + java.net.URLEncoder.encode("Đăng ký thất bại, tên đăng nhập hoặc email có thể đã tồn tại", "UTF-8"));
             }
 
         } else if ("login".equals(action)) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
+            // Validation: Username không được rỗng
+            if (ValidationUtil.isEmpty(username)) {
+                response.sendRedirect("login.jsp?error=" + java.net.URLEncoder.encode("Tên đăng nhập không được để trống", "UTF-8"));
+                return;
+            }
+
+            // Validation: Password không được rỗng
+            if (ValidationUtil.isEmpty(password)) {
+                response.sendRedirect("login.jsp?error=" + java.net.URLEncoder.encode("Mật khẩu không được để trống", "UTF-8"));
+                return;
+            }
+
             // Hash mật khẩu để so khớp với DB
             String hashed = hashPassword(password);
 
-            User u = dao.login(username, hashed);
+            User u = dao.login(username.trim(), hashed);
             if (u != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", u);
                 response.sendRedirect("index.jsp");
             } else {
-                response.sendRedirect("login.jsp?error=1");
+                response.sendRedirect("login.jsp?error=" + java.net.URLEncoder.encode("Tên đăng nhập hoặc mật khẩu không đúng", "UTF-8"));
             }
         }
     }

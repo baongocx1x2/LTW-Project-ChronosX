@@ -1,52 +1,69 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'vi'}"/>
+<fmt:setBundle basename="messages"/>
+
 <footer class="bg-dark text-white mt-5">
   <div class="container py-5">
     <div class="row">
-      <!-- Cột 1: Thông tin công ty -->
+
+      <!-- CỘT 1: CÔNG TY -->
       <div class="col-md-3">
-        <h5>Công ty cổ phần ChronosX</h5>
-        <p>MST: 0315286507</p>
-        <p>Do Sở Kế Hoạch Và Đầu Tư TP.HCM cấp ngày: 24/06/2024</p>
+        <h5><fmt:message key="footer.company"/></h5>
+        <p><fmt:message key="footer.vat"/>: 0315286507</p>
+        <p>
+          <fmt:message key="footer.license">
+            <fmt:param value="24/06/2024"/>
+          </fmt:message>
+        </p>
       </div>
 
-      <!-- Cột 2: Địa chỉ -->
+      <!-- CỘT 2: ĐỊA CHỈ -->
       <div class="col-md-3">
-        <h5>Địa chỉ</h5>
-        <p>📍 P18-17, Tầng 18, Tòa Nhà The Nexus, Số 3A-3B, Đường Tôn Đức Thắng, Phường Sài Gòn, TP.HCM</p>
-        <p>📞 (+84) 28 3821 6848</p>
+        <h5><fmt:message key="footer.address.title"/></h5>
+        <p>
+          📍 <fmt:message key="footer.address.detail"/>
+        </p>
+        <p>
+          📞 (+84) 28 3821 6848
+        </p>
       </div>
 
-      <!-- Cột 3: Chính sách bảo hành -->
+      <!-- CỘT 3: CHÍNH SÁCH -->
       <div class="col-md-3">
-        <h5>Chính sách bảo hành</h5>
+        <h5><fmt:message key="footer.policy.title"/></h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Chính sách bảo mật</a></li>
-          <li><a href="privacy.jsp" class="text-white">Chính sách giao hàng</a></li>
-          <li><a href="#" class="text-white">Chính sách đổi hàng</a></li>
-          <li><a href="#" class="text-white">Chính sách thanh toán</a></li>
+          <li><a href="#" class="text-white"><fmt:message key="footer.policy.privacy"/></a></li>
+          <li><a href="privacy.jsp" class="text-white"><fmt:message key="footer.policy.shipping"/></a></li>
+          <li><a href="#" class="text-white"><fmt:message key="footer.policy.return"/></a></li>
+          <li><a href="#" class="text-white"><fmt:message key="footer.policy.payment"/></a></li>
         </ul>
       </div>
 
-      <!-- Cột 4: Khám phá -->
+      <!-- CỘT 4: KHÁM PHÁ -->
       <div class="col-md-3">
-        <h5>Khám phá</h5>
+        <h5><fmt:message key="footer.explore.title"/></h5>
         <ul class="list-unstyled">
-          <li><a href="news" class="text-white">Tin tức</a></li>
-          <li><a href="#" class="text-white">Tìm kiếm</a></li>
-          <li><a href="#" class="text-white">Các cửa hàng</a></li>
+          <li><a href="news" class="text-white"><fmt:message key="footer.explore.news"/></a></li>
+          <li><a href="#" class="text-white"><fmt:message key="footer.explore.search"/></a></li>
+          <li><a href="#" class="text-white"><fmt:message key="footer.explore.stores"/></a></li>
         </ul>
       </div>
+
     </div>
 
-    <!-- Dòng cuối cùng -->
+    <!-- DÒNG CUỐI -->
     <div class="text-center mt-4">
       <img src="images/logo-ssgroup.png" alt="ChronosX Group" style="height: 40px;">
-      <p class="mt-2">ĐÃ THÔNG BÁO BỘ CÔNG THƯƠNG</p>
+      <p class="mt-2">
+        <fmt:message key="footer.certified"/>
+      </p>
     </div>
   </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </footer>
+
 </body>
 </html>

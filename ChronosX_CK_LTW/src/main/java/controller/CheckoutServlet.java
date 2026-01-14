@@ -15,6 +15,7 @@ import model.CartItem;
 import model.Product;
 import model.User;
 import util.EmailService;
+import util.ValidationUtil;
 
 public class CheckoutServlet extends HttpServlet {
     @Override
@@ -25,14 +26,42 @@ public class CheckoutServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
-        if (user == null || cart == null || cart.isEmpty()) {
-            response.sendRedirect("cart.jsp?error=empty");
+        // Validation: Kiểm tra user đã đăng nhập
+        if (user == null) {
+            response.sendRedirect("login.jsp?error=" + java.net.URLEncoder.encode("Vui lòng đăng nhập để thanh toán", "UTF-8"));
             return;
+        }
+
+        // Validation: Kiểm tra giỏ hàng
+        if (cart == null || cart.isEmpty()) {
+            response.sendRedirect("cart.jsp?error=" + java.net.URLEncoder.encode("Giỏ hàng của bạn đang trống", "UTF-8"));
+            return;
+        }
+
+        // Validation: Kiểm tra các item trong giỏ hàng
+        for (CartItem item : cart) {
+            if (item.getProduct() == null) {
+                response.sendRedirect("cart.jsp?error=" + java.net.URLEncoder.encode("Giỏ hàng chứa sản phẩm không hợp lệ", "UTF-8"));
+                return;
+            }
+            
+            if (item.getQuantity() <= 0) {
+                response.sendRedirect("cart.jsp?error=" + java.net.URLEncoder.encode("Số lượng sản phẩm không hợp lệ", "UTF-8"));
+                return;
+            }
         }
 
         double total = 0;
         for (CartItem item : cart) {
-            total += item.getTotalPrice();
+            if (item.getProduct() != null) {
+                total += item.getTotalPrice();
+            }
+        }
+
+        // Validation: Kiểm tra tổng tiền hợp lệ
+        if (total <= 0) {
+            response.sendRedirect("cart.jsp?error=" + java.net.URLEncoder.encode("Tổng tiền không hợp lệ", "UTF-8"));
+            return;
         }
 
         try (Connection conn = DBConnection.getConnection()) {
