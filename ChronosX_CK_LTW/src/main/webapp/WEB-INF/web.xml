@@ -1,105 +1,136 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         version="5.0">
+	version="5.0">
 
-    <!-- ProductServlet -->
+	<!-- ProductServlet -->
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>controller.ProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/products</url-pattern>
+	</servlet-mapping>
+
+	<!-- CartServlet -->
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/cart</url-pattern>
+	</servlet-mapping>
+
+	<!-- AdminServlet -->
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>controller.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+
+	<!-- NewsServlet -->
+	<servlet>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>controller.NewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/news</url-pattern>
+	</servlet-mapping>
+	
+	<!-- AddProductServlet -->
     <servlet>
-        <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>controller.ProductServlet</servlet-class>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>controller.AddProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/products</url-pattern>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
-
-    <!-- CartServlet -->
     <servlet>
-        <servlet-name>CartServlet</servlet-name>
-        <servlet-class>controller.CartServlet</servlet-class>
+        <servlet-name>EditProductServlet</servlet-name>
+        <servlet-class>controller.EditProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CartServlet</servlet-name>
-        <url-pattern>/cart</url-pattern>
+        <servlet-name>EditProductServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
-
-    <!-- AdminServlet -->
     <servlet>
-        <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>controller.AdminServlet</servlet-class>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>controller.DeleteProductServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+    
+    
 
-    <!-- NewsServlet -->
-    <servlet>
-        <servlet-name>NewsServlet</servlet-name>
-        <servlet-class>controller.NewsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewsServlet</servlet-name>
-        <url-pattern>/news</url-pattern>
-    </servlet-mapping>
+	
 
-    <!-- AuthServlet (login/register) -->
-    <servlet>
-        <servlet-name>AuthServlet</servlet-name>
-        <servlet-class>controller.AuthServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AuthServlet</servlet-name>
-        <url-pattern>/auth</url-pattern>
-    </servlet-mapping>
+	<!-- AuthServlet (login/register) -->
+	<servlet>
+		<servlet-name>AuthServlet</servlet-name>
+		<servlet-class>controller.AuthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthServlet</servlet-name>
+		<url-pattern>/auth</url-pattern>
+	</servlet-mapping>
 
-    <!-- LogoutServlet -->
-    <servlet>
-        <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>controller.LogoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <!-- CheckoutServlet -->
-    <servlet>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <servlet-class>controller.CheckoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CheckoutServlet</servlet-name>
-        <url-pattern>/checkout</url-pattern>
-    </servlet-mapping>
-    <!-- OrderServlet -->
-    <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>controller.OrderServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/orders</url-pattern>
-    </servlet-mapping>
+	<!-- LogoutServlet -->
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>controller.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	<!-- CheckoutServlet -->
+	<servlet>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<servlet-class>controller.CheckoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<url-pattern>/checkout</url-pattern>
+	</servlet-mapping>
+	<!-- OrderServlet -->
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/orders</url-pattern>
+	</servlet-mapping>
 
-    <!-- Encoding Filter (UTF-8) -->
-    <filter>
-        <filter-name>EncodingFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>EncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+	<!-- Encoding Filter (UTF-8) -->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
-    <!-- Welcome file -->
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+	<!-- Welcome file -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 
 </web-app>
