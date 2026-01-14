@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -218,4 +219,163 @@
     </section>
 </div>
 
+=======
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ include file="header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<link rel="stylesheet" href="css/index.css">
+
+<div class="index-page">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <span class="badge bg-warning text-dark mb-3 hero-badge">
+                        <fmt:message key="hero.badge"/>
+                    </span>
+
+                    <h1 class="hero-title">
+                        <fmt:message key="hero.title"/>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        <fmt:message key="hero.subtitle"/>
+                    </p>
+
+                    <ul class="hero-highlights list-unstyled mb-4">
+                        <li><i class="fa fa-check-circle text-success me-2"></i>
+                            <fmt:message key="hero.benefit1"/>
+                        </li>
+                        <li><i class="fa fa-check-circle text-success me-2"></i>
+                            <fmt:message key="hero.benefit2"/>
+                        </li>
+                        <li><i class="fa fa-check-circle text-success me-2"></i>
+                            <fmt:message key="hero.benefit3"/>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="products" class="btn btn-primary btn-lg">
+                            <fmt:message key="hero.buy"/>
+                            <i class="fa fa-arrow-right ms-2"></i>
+                        </a>
+                        <a href="news" class="btn btn-outline-light btn-lg">
+                            <fmt:message key="hero.explore"/>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 text-center">
+                    <div class="hero-image-wrapper hero-image-floating">
+                        <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800"
+                             alt="Luxury watch" class="img-fluid hero-image">
+                        <div class="hero-promo-card shadow-lg">
+                            <h4 class="mb-1">
+                                <fmt:message key="hero.sale"/>
+                            </h4>
+                            <p class="mb-0">
+                                <fmt:message key="hero.sale.note"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefit-strip">
+        <div class="container py-4">
+            <div class="row g-3 g-md-4 text-center text-md-start">
+
+                <div class="col-6 col-md-4">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa fa-shield-halved"></i></div>
+                        <h6><fmt:message key="benefit.warranty"/></h6>
+                        <p><fmt:message key="benefit.warranty.desc"/></p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa fa-truck-fast"></i></div>
+                        <h6><fmt:message key="benefit.shipping"/></h6>
+                        <p><fmt:message key="benefit.shipping.desc"/></p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa fa-headset"></i></div>
+                        <h6><fmt:message key="benefit.support"/></h6>
+                        <p><fmt:message key="benefit.support.desc"/></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="featured-section py-5">
+        <div class="container">
+
+            <h2 class="section-title mb-1">
+                <fmt:message key="featured.title"/>
+            </h2>
+            <p class="text-muted mb-3">
+                <fmt:message key="featured.subtitle"/>
+            </p>
+
+            <c:choose>
+                <c:when test="${not empty products}">
+                    <div class="row g-4">
+                        <c:forEach var="p" items="${products}">
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="product-card h-100">
+
+                                    <img src="${p.image}" class="product-image" alt="${p.name}">
+
+                                    <h5>${p.name}</h5>
+
+                                    <p class="text-muted">
+                                        <fmt:message key="product.brand"/>: ${p.brand}
+                                    </p>
+
+                                    <p>
+                                        <fmt:formatNumber value="${p.price}" type="number" maxFractionDigits="0"/> VND
+                                        <span class="text-muted">
+                                            <fmt:message key="product.vat"/>
+                                        </span>
+                                    </p>
+
+                                    <a href="products?id=${p.id}" class="btn btn-outline-primary w-100 btn-sm">
+                                        <fmt:message key="product.view"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="text-center py-5">
+                        <h5><fmt:message key="featured.empty.title"/></h5>
+                        <p class="text-muted">
+                            <fmt:message key="featured.empty.subtitle"/>
+                        </p>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+    </section>
+
+</div>
+
+>>>>>>> stash
 <%@ include file="footer.jsp" %>

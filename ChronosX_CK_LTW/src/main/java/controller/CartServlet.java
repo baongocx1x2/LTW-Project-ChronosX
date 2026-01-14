@@ -7,6 +7,7 @@ import java.util.*;
 import model.CartItem;
 import model.Product;
 import dao.ProductDAO;
+import util.ValidationUtil;
 
 public class CartServlet extends HttpServlet {
     @Override
@@ -59,15 +60,27 @@ public class CartServlet extends HttpServlet {
 
         try {
             if ("add".equals(action)) {
-                int productId = Integer.parseInt(request.getParameter("productId"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                String productIdStr = request.getParameter("productId");
+                String quantityStr = request.getParameter("quantity");
                 
-                // Validation
-                if (quantity <= 0) {
-                    session.setAttribute("cartError", "Số lượng phải lớn hơn 0");
+                // Validation: Product ID
+                ValidationUtil.ValidationResult idResult = ValidationUtil.validateId(productIdStr);
+                if (!idResult.isValid()) {
+                    session.setAttribute("cartError", idResult.getErrorMessage());
                     response.sendRedirect("cart");
                     return;
                 }
+                
+                // Validation: Quantity
+                ValidationUtil.ValidationResult qtyResult = ValidationUtil.validateQuantity(quantityStr);
+                if (!qtyResult.isValid()) {
+                    session.setAttribute("cartError", qtyResult.getErrorMessage());
+                    response.sendRedirect("cart");
+                    return;
+                }
+                
+                int productId = Integer.parseInt(productIdStr);
+                int quantity = Integer.parseInt(quantityStr);
                 
                 Product product = new ProductDAO().getProductById(productId);
                 if (product == null) {
@@ -92,20 +105,41 @@ public class CartServlet extends HttpServlet {
                 session.setAttribute("cartSuccess", "Đã thêm sản phẩm vào giỏ hàng");
 
             } else if ("remove".equals(action)) {
-                int productId = Integer.parseInt(request.getParameter("productId"));
+                String productIdStr = request.getParameter("productId");
+                ValidationUtil.ValidationResult idResult = ValidationUtil.validateId(productIdStr);
+                
+                if (!idResult.isValid()) {
+                    session.setAttribute("cartError", idResult.getErrorMessage());
+                    response.sendRedirect("cart");
+                    return;
+                }
+                
+                int productId = Integer.parseInt(productIdStr);
                 cart.removeIf(item -> item.getProduct() != null && item.getProduct().getId() == productId);
                 session.setAttribute("cartSuccess", "Đã xóa sản phẩm khỏi giỏ hàng");
 
             } else if ("update".equals(action)) {
-                int productId = Integer.parseInt(request.getParameter("productId"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                String productIdStr = request.getParameter("productId");
+                String quantityStr = request.getParameter("quantity");
                 
-                // Validation
-                if (quantity <= 0) {
-                    session.setAttribute("cartError", "Số lượng phải lớn hơn 0");
+                // Validation: Product ID
+                ValidationUtil.ValidationResult idResult = ValidationUtil.validateId(productIdStr);
+                if (!idResult.isValid()) {
+                    session.setAttribute("cartError", idResult.getErrorMessage());
                     response.sendRedirect("cart");
                     return;
                 }
+                
+                // Validation: Quantity
+                ValidationUtil.ValidationResult qtyResult = ValidationUtil.validateQuantity(quantityStr);
+                if (!qtyResult.isValid()) {
+                    session.setAttribute("cartError", qtyResult.getErrorMessage());
+                    response.sendRedirect("cart");
+                    return;
+                }
+                
+                int productId = Integer.parseInt(productIdStr);
+                int quantity = Integer.parseInt(quantityStr);
                 
                 boolean found = false;
                 for (CartItem item : cart) {
@@ -130,7 +164,7 @@ public class CartServlet extends HttpServlet {
             cart.removeIf(item -> item.getProduct() == null);
 
         } catch (NumberFormatException e) {
-            session.setAttribute("cartError", "Dữ liệu không hợp lệ");
+            session.setAttribute("cartError", "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại thông tin nhập vào.");
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("cartError", "Có lỗi xảy ra: " + e.getMessage());

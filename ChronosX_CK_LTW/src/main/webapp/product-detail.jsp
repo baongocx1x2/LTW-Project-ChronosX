@@ -100,14 +100,15 @@
                                 </div>
 
                                 <!-- Add to Cart Form -->
-                                <form action="cart" method="post" class="product-detail-form">
+                                <form action="cart" method="post" class="product-detail-form" id="addToCartForm">
                                     <input type="hidden" name="action" value="add" />
                                     <input type="hidden" name="productId" value="${product.id}" />
                                     <div class="row g-2 mb-3">
                                         <div class="col-auto">
                                             <label class="form-label">Số lượng</label>
-                                            <input type="number" name="quantity" value="1" min="1" 
+                                            <input type="number" name="quantity" id="quantity" value="1" min="1" max="9999"
                                                    class="form-control product-detail-quantity" required>
+                                            <div class="form-text">Số lượng từ 1 đến 9999</div>
                                         </div>
                                     </div>
                                     <div class="d-flex gap-2 flex-wrap">
@@ -184,5 +185,6 @@
     </c:choose>
 </div>
 
+<script src="js/validation.js"></script>
 <%@ include file="footer.jsp" %>
 
