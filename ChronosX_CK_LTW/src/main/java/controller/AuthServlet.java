@@ -10,6 +10,7 @@ import java.util.Base64;
 
 import dao.UserDAO;
 import model.User;
+import util.EmailService;
 
 public class AuthServlet extends HttpServlet {
     private UserDAO dao = new UserDAO();
@@ -53,6 +54,14 @@ public class AuthServlet extends HttpServlet {
             u.setPassword(hashed);
 
             if (dao.register(u)) {
+                // Gửi email chào mừng (không làm gián đoạn quá trình đăng ký nếu có lỗi)
+                try {
+                    EmailService.sendWelcomeEmail(email, fullname);
+                } catch (Throwable e) {
+                    // Bắt tất cả lỗi (kể cả NoClassDefFoundError) và không làm gián đoạn đăng ký
+                    System.err.println("Lỗi khi gửi email chào mừng (không ảnh hưởng đến đăng ký): " + e.getMessage());
+                    e.printStackTrace();
+                }
                 response.sendRedirect("login.jsp?success=1");
             } else {
                 response.sendRedirect("register.jsp?error=1");

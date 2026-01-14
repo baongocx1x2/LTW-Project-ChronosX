@@ -24,6 +24,7 @@ public class CartItem {
     }
 
     public double getTotalPrice() {
+        if (product == null) return 0;
         return product.getPrice() * quantity;
     }
 }

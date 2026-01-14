@@ -10,8 +10,11 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import dao.DBConnection;
+import dao.ProductDAO;
 import model.CartItem;
+import model.Product;
 import model.User;
+import util.EmailService;
 
 public class CheckoutServlet extends HttpServlet {
     @Override
@@ -61,15 +64,78 @@ public class CheckoutServlet extends HttpServlet {
             }
             psItem.executeBatch();
 
-            // 3. Xóa giỏ hàng trong session
+            // 3. Gửi email xác nhận đơn hàng
+            if (user.getEmail() != null && !user.getEmail().trim().isEmpty()) {
+                try {
+                    String orderDetailsHtml = buildOrderDetailsHtml(cart);
+                    System.out.println("Đang gửi email xác nhận đơn hàng #" + orderId + " đến: " + user.getEmail());
+                    boolean emailSent = EmailService.sendOrderConfirmationEmail(
+                        user.getEmail(),
+                        orderId,
+                        user.getFullname() != null ? user.getFullname() : user.getUsername(),
+                        orderDetailsHtml,
+                        total
+                    );
+                    if (emailSent) {
+                        System.out.println("✓ Email xác nhận đơn hàng #" + orderId + " đã được gửi thành công đến: " + user.getEmail());
+                    } else {
+                        System.out.println("✗ Không thể gửi email xác nhận đơn hàng #" + orderId + " (kiểm tra cấu hình email trong EmailConfig)");
+                    }
+                } catch (Throwable e) {
+                    // Bắt tất cả lỗi (kể cả NoClassDefFoundError) và không làm gián đoạn checkout
+                    System.err.println("✗ Lỗi khi gửi email xác nhận đơn hàng (không ảnh hưởng đến đơn hàng): " + e.getMessage());
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("⚠ Không có email của người dùng, bỏ qua gửi email xác nhận đơn hàng #" + orderId);
+            }
+
+            // 4. Xóa giỏ hàng trong session
             session.removeAttribute("cart");
 
-            // 4. Redirect tới trang xác nhận
+            // 5. Redirect tới trang xác nhận
             response.sendRedirect("orderSuccess.jsp?orderId=" + orderId);
 
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("cart.jsp?error=checkout");
         }
+    }
+    
+    /**
+     * Tạo HTML cho chi tiết đơn hàng trong email
+     */
+    private String buildOrderDetailsHtml(List<CartItem> cart) {
+        StringBuilder html = new StringBuilder();
+        html.append("<table>");
+        html.append("<thead>");
+        html.append("<tr>");
+        html.append("<th>Sản phẩm</th>");
+        html.append("<th>Số lượng</th>");
+        html.append("<th>Đơn giá</th>");
+        html.append("<th>Thành tiền</th>");
+        html.append("</tr>");
+        html.append("</thead>");
+        html.append("<tbody>");
+        
+        for (CartItem item : cart) {
+            Product product = item.getProduct();
+            if (product == null) {
+                // Nếu product null, bỏ qua item này
+                continue;
+            }
+            
+            html.append("<tr>");
+            html.append("<td>").append(product.getName()).append("</td>");
+            html.append("<td>").append(item.getQuantity()).append("</td>");
+            html.append("<td>").append(String.format("%,.0f", product.getPrice())).append(" VND</td>");
+            html.append("<td>").append(String.format("%,.0f", item.getTotalPrice())).append(" VND</td>");
+            html.append("</tr>");
+        }
+        
+        html.append("</tbody>");
+        html.append("</table>");
+        
+        return html.toString();
     }
 }

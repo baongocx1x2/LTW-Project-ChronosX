@@ -36,7 +36,24 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="index.jsp">Trang chủ</a></li>
         <li class="nav-item"><a class="nav-link" href="products">Sản phẩm</a></li>
-        <li class="nav-item"><a class="nav-link" href="cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+        <li class="nav-item">
+            <a class="nav-link position-relative" href="cart">
+                <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                <c:if test="${not empty sessionScope.cart}">
+                    <c:set var="cartItemCount" value="0" />
+                    <c:forEach var="item" items="${sessionScope.cart}">
+                        <c:if test="${not empty item.product}">
+                            <c:set var="cartItemCount" value="${cartItemCount + item.quantity}" />
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${cartItemCount > 0}">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
+                            ${cartItemCount}
+                        </span>
+                    </c:if>
+                </c:if>
+            </a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="news"><i class="fa fa-newspaper"></i> Tin tức</a></li>
 
         <!-- Kiểm tra session user -->
